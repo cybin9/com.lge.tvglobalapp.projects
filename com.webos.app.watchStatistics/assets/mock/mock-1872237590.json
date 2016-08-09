@@ -1,0 +1,8 @@
+{
+    "subscribed":false,
+    "configs":{
+        "com.palm.app.settings.enableSmartPictureMode":true,
+        "com.palm.app.settings.enablePictureExpertPattern":true
+    },
+    "returnValue":true
+}

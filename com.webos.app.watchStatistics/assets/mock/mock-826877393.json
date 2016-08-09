@@ -1,0 +1,14 @@
+{
+    "returnValue":true,
+    "results":[
+        {
+            "settings":{
+                "allowMobileDeviceAccess":true,
+                "deviceName":"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+            },
+            "category":"network",
+            "method":"getSystemSettings",
+            "returnValue":true
+        }
+    ]
+}

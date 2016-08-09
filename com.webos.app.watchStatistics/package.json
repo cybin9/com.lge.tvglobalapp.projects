@@ -1,0 +1,14 @@
+{
+  "name": "myproject",
+  "assets": [
+    "assets/*.*",
+    "appinfo.json"
+  ],
+  "devAssets": [],
+  "styles": [
+    "src/style/main.less"
+  ],
+  "main": "index.js",
+  "moduleDir": "src",
+  "description": "An Enyo-based self contained template to build web applications using HTML, CSS and JavaScript."
+}

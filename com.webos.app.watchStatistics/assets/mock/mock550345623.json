@@ -1,0 +1,20 @@
+{
+    "returnValue":true,
+    "screenStatus":[
+        {
+            "sinkType":"MAIN",
+            "connected":false,
+            "fullScreen":true,
+            "window":{
+                "positionX":0,
+                "positionY":0,
+                "width":1920,
+                "height":1080
+            }
+        },
+        {
+            "sinkType":"SUB",
+            "connected":false
+        }
+    ]
+}

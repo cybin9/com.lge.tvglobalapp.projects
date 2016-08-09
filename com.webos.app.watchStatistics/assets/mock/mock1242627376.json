@@ -1,0 +1,483 @@
+{
+  "returnValue": true,
+  "results": [
+    {
+      "settings": {
+        "avSync": "off",
+        "avSyncBypassInput": "off",
+        "avSyncSpdif": "0",
+        "avSyncSpeaker": "0",
+        "soundMode": "standard",
+        "_3dSoundZooming": "off",
+        "audioBalance": "0",
+        "autoVolume": "off",
+        "clearVoice": "off",
+        "digitalAudioPriority": "auto",
+        "slidingSpeaker": "openPowerOn",
+        "slidingSpeakerMelody": "on",
+        "smartSoundMode": "off",
+        "soundModeModified": "false",
+        "soundOptimizer": "normal",
+        "userEqualizer": "off",
+        "userEqualizerValues": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "virtualSurround": "off",
+        "volumeControl": "medium",
+        "soundOutputDigital": "auto",
+        "soundOutput": "tv_speakerbar"
+      },
+      "category": "sound",
+      "dimension": {
+        "input": "default"
+      },
+      "method": "getSystemSettings",
+      "returnValue": true
+    },
+    {
+      "vtype": "ArrayExt",
+      "values": {
+        "arrayExt": [
+          {
+            "active": true,
+            "visible": true,
+            "value": "on"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "off"
+          }
+        ]
+      },
+      "returnValue": true,
+      "method": "getSystemSettingValues"
+    },
+    {
+      "vtype": "ArrayExt",
+      "values": {
+        "arrayExt": [
+          {
+            "active": true,
+            "visible": true,
+            "value": "standard"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "movie"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "news"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "sports"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "music"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "game"
+          }
+        ]
+      },
+      "returnValue": true,
+      "method": "getSystemSettingValues"
+    },
+    {
+      "vtype": "ArrayExt",
+      "values": {
+        "arrayExt": [
+          {
+            "active": true,
+            "visible": true,
+            "value": "tv_speaker"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "tv_speakerbar"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "external_speaker"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "soundbar"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "bt_soundbar"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "lineout"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "builtin_soundbar"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "headphone"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "tv_external_speaker"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "tv_speaker_headphone"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "tv_speakerbar_headphone"
+          }
+        ]
+      },
+      "returnValue": true,
+      "method": "getSystemSettingValues"
+    },
+    {
+      "vtype": "ArrayExt",
+      "values": {
+        "arrayExt": [
+          {
+            "active": true,
+            "visible": true,
+            "value": "on"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "off"
+          }
+        ]
+      },
+      "returnValue": true,
+      "method": "getSystemSettingValues"
+    },
+    {
+      "vtype": "ArrayExt",
+      "values": {
+        "arrayExt": [
+          {
+            "active": true,
+            "visible": true,
+            "value": "auto"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "pcm"
+          }
+        ]
+      },
+      "returnValue": true,
+      "method": "getSystemSettingValues"
+    },
+    {
+      "settings": {
+        "simplinkEnable": "off"
+      },
+      "category": "other",
+      "method": "getSystemSettings",
+      "returnValue": true
+    },
+    {
+      "vtype": "ArrayExt",
+      "values": {
+        "arrayExt": [
+          {
+            "active": true,
+            "visible": true,
+            "value": "mpeg"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "dolbyDigital"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "dobyDigitalPlus"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "heAaC"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "auto"
+          }
+        ]
+      },
+      "returnValue": true,
+      "method": "getSystemSettingValues"
+    },
+    {
+      "vtype": "ArrayExt",
+      "values": {
+        "arrayExt": [
+          {
+            "active": true,
+            "visible": true,
+            "value": "on"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "off"
+          }
+        ]
+      },
+      "returnValue": true,
+      "method": "getSystemSettingValues"
+    },
+    {
+      "vtype": "ArrayExt",
+      "values": {
+        "arrayExt": [
+          {
+            "active": true,
+            "visible": true,
+            "value": "normal"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "stand"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "wall_mount"
+          }
+        ]
+      },
+      "returnValue": true,
+      "method": "getSystemSettingValues"
+    },
+    {
+      "vtype": "ArrayExt",
+      "values": {
+        "arrayExt": [
+          {
+            "active": true,
+            "visible": true,
+            "value": "off"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "level1"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "level2"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "level3"
+          }
+        ]
+      },
+      "returnValue": true,
+      "method": "getSystemSettingValues"
+    },
+    {
+      "vtype": "ArrayExt",
+      "values": {
+        "arrayExt": [
+          {
+            "active": true,
+            "visible": true,
+            "value": "on"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "off"
+          }
+        ]
+      },
+      "returnValue": true,
+      "method": "getSystemSettingValues"
+    },
+    {
+      "vtype": "ArrayExt",
+      "values": {
+        "arrayExt": [
+          {
+            "active": true,
+            "visible": true,
+            "value": "on"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "off"
+          }
+        ]
+      },
+      "returnValue": true,
+      "method": "getSystemSettingValues"
+    },
+    {
+      "vtype": "ArrayExt",
+      "values": {
+        "arrayExt": [
+          {
+            "active": true,
+            "visible": true,
+            "value": "on"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "off"
+          }
+        ]
+      },
+      "returnValue": true,
+      "method": "getSystemSettingValues"
+    },
+    {
+      "vtype": "Range",
+      "values": {
+        "range": {
+          "max": 10,
+          "interval": 1,
+          "min": -10
+        }
+      },
+      "returnValue": true,
+      "method": "getSystemSettingValues"
+    },
+    {
+      "vtype": "Range",
+      "values": {
+        "range": {
+          "max": 50,
+          "interval": 1,
+          "min": -50
+        }
+      },
+      "returnValue": true,
+      "method": "getSystemSettingValues"
+    },
+    {
+      "vtype": "ArrayExt",
+      "values": {
+        "arrayExt": [
+          {
+            "active": true,
+            "visible": true,
+            "value": "on"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "off"
+          }
+        ]
+      },
+      "returnValue": true,
+      "method": "getSystemSettingValues"
+    },
+    {
+      "vtype": "ArrayExt",
+      "values": {
+        "arrayExt": [
+          {
+            "active": true,
+            "visible": true,
+            "value": "low"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "medium"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "high"
+          }
+        ]
+      },
+      "returnValue": true,
+      "method": "getSystemSettingValues"
+    },
+    {
+      "vtype": "Range",
+      "values": {
+        "range": {
+          "max": 15,
+          "interval": 1,
+          "min": -5
+        }
+      },
+      "returnValue": true,
+      "method": "getSystemSettingValues"
+    },
+    {
+      "vtype": "Range",
+      "values": {
+        "range": {
+          "max": 15,
+          "interval": 1,
+          "min": -5
+        }
+      },
+      "returnValue": true,
+      "method": "getSystemSettingValues"
+    },
+    {
+      "vtype": "ArrayExt",
+      "values": {
+        "arrayExt": [
+          {
+            "active": true,
+            "visible": true,
+            "value": "on"
+          },
+          {
+            "active": true,
+            "visible": true,
+            "value": "off"
+          }
+        ]
+      },
+      "returnValue": true,
+      "method": "getSystemSettingValues"
+    }
+  ]
+}
