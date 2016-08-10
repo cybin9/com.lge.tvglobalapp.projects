@@ -20,6 +20,7 @@ var
 	Divider = require('moonstone/Divider'),
     TooltipDecorator = require('moonstone/TooltipDecorator'),
 	FittableColumns = require('layout/FittableColumns'),
+	GraphView = require('./GraphView'),
     Tooltip = require('moonstone/Tooltip');
 
 
@@ -69,16 +70,8 @@ module.exports = kind({
 								]
 							},
 							{
-								name: "helpTextArea",
-								classes: "help-text-area",
-								components: [
-									{
-										name: "helpText",
-										kind: BodyText,
-										showing: false,
-										classes: "help-text"
-									}
-								]
+								name: "GraphArea",
+								kind: GraphView
 							}]
 			}]
 		}
