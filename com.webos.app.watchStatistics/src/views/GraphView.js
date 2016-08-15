@@ -1,41 +1,47 @@
 
-var
+var	// Library
 	kind = require('enyo/kind'),
 	Panel = require('moonstone/Panel'),
 	FittableColumns = require('layout/FittableColumns'),
 	BodyText = require('moonstone/BodyText'),
+	ProgressBar = require('moonstone/ProgressBar'),
+	EnyoObject = require('enyo/CoreObject');
+
+var	// App Objects
 	GraphItem = require('./GraphItem'),
-	ProgressBar = require('moonstone/ProgressBar');
+	DataController = require('../controls/DataController'),
+	GraphComponent = [];
 
 module.exports = kind({
-	name:'myapp.GraphView',
-	//kind: FittableColumns,
-	classes: 'moon enyo-unselectable',
-	components:[
+	name:'GraphView',
+	kind: Panel,
+	components:GraphComponent,
+
+	published: {
+		statType : "ch",
+		GraphData : {}
+	},
+
+	statTypeChanged : function(inOId){
+		if (this.statType==='ch')
 		{
-			// No.1 item
-			kind: FittableColumns,
-			style: 'margin-up:20px;',
-			components:[
-			{
-				kind: BodyText, name: 'item-1', content: '6-1 KBS'
-			},
-			{
-				kind: ProgressBar, progress: 25, style: 'height:30px; width:800px;'
-			}
-			]
-		},
-		{
-			kind: ProgressBar, progress: 50, style: 'height:30px; width:800px;'
-		},
-		{
-			kind: ProgressBar, progress: 70, style: 'height:30px; width:800px;'
-		},
-		{
-			kind: ProgressBar, progress: 50, style: 'height:30px; width:800px;'
-		},
-		{
-			kind: ProgressBar, progress: 50, style: 'height:30px; width:800px;'
+			GraphData = DataController.getChStat();
 		}
-	]
+		else if (this.statType==='timePeriod')
+		{
+			GraphData = DataController.getTimePeriodStat();
+		}
+		else {	// weekly Static
+			GraphData = DataController.getWeekStat();
+		}
+		GraphComponent = [];
+		for (var item=0; item<GraphData.length; item++)
+		{
+			var item = new GraphItem();
+			item.set('label', GraphItem[item].label);
+			item.set('data', GraphItem[item].watchTime);
+			GraphComponent.push(item);
+		}
+	}
 });
+

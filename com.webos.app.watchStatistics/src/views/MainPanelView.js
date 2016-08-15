@@ -23,6 +23,10 @@ var
 	GraphView = require('./GraphView'),
     Tooltip = require('moonstone/Tooltip');
 
+var	// App Objects
+	GraphItem = require('./GraphItem'),
+	DataController = require('../controls/DataController'),
+	GraphComponent = [];
 
 module.exports = kind({
 	name: "myapp.MainView",
@@ -51,28 +55,33 @@ module.exports = kind({
 							//noStretch: true,
 							components:[
 							{
-								classes: "category-text-area", name: "category",  components: [
+								components: [
 									{
-										kind: Item, name: "chStat", content: $L("Most Watched Channels") /*,
-										ontap : "onTapHandler", onSpotlightFocused: "onFocusHandler", onSpotlightBlur: "onSpotlightBlurHandler" */
+										kind: Item, name: "chStat", content: $L("Most Watched Channels"),
+										ontap : "onTapHandlerChStat"/*, onSpotlightFocused: "onFocusHandler", onSpotlightBlur: "onSpotlightBlurHandler" */
 									},
 									{
-										kind: Item, name: "timeStat",  content: $L("Most Watched Time-period") /*,
-										ontap : "onTapHandler", /*onSpotlightFocused: "onFocusHandler", onSpotlightBlur: "onSpotlightBlurHandler" 
+										kind: Item, name: "timeStat",  content: $L("Most Watched Time-period"),
+										ontap : "onTapHandlerTimePeriodStat"/*, onSpotlightFocused: "onFocusHandler", onSpotlightBlur: "onSpotlightBlurHandler" 
 										accessibilityHint: "," + $L("You can edit a list of favorites such as add to favorites, delete, etc.")*/
 									},
 									{
-										kind: Item, name: "weekStat",  content: $L("Weekly Statistics") /*,
-										ontap : "onTapHandler", /*onSpotlightFocused: "onFocusHandler", onSpotlightBlur: "onSpotlightBlurHandler" 
+										kind: Item, name: "weekStat",  content: $L("Weekly Statistics"),
+										ontap : "onTapHandlerWeekStat"/*, onSpotlightFocused: "onFocusHandler", onSpotlightBlur: "onSpotlightBlurHandler" 
 										accessibilityHint: "," + $L("You can edit a list of favorites such as add to favorites, delete, etc.")*/
 									}
 
 								]
 							},
 							{
-								name: "GraphArea",
-								kind: GraphView
-							}]
+								components: [
+									{
+										kind: GraphView,
+										name: "GraphArea"
+									}
+								]
+							}
+							]
 			}]
 		}
 		//{kind: Panel, classes: 'enyo-fit', title: 'Watch Statistics', components: [
@@ -80,5 +89,17 @@ module.exports = kind({
 		//					{kind: Item, name:'timeStat', content: 'Most Watched Time-period'},
 		//					{kind: Item, name:'weekStat', content: 'Weekly Statistics'},
 		//				]}
-	]
+	],
+	onTapHandlerChStat: function (sender, ev) {
+		this.$.GraphArea.set('statType', 'ch');
+		return true;
+	},
+	onTapHandlerTimePeriodStat: function (sender, ev) {
+		this.$.GraphArea.set('statType','timePeriod');
+		return true;
+	},
+	onTapHandlerWeekStat: function (sender, ev) {
+		this.$.GraphArea.set('statType','week');
+		return true;
+	},
 });
