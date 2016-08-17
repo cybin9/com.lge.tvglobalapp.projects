@@ -7,30 +7,23 @@ var
 module.exports = kind({
 	kind: FittableColumns,
 	name : 'GraphItem',
-	published : {
-		label : "",
-		data : 0
-	},
+	label : "",
+	data : 0,
 	components:[
 		{
-			kind: BodyText, name: 'graphLabel'
+			kind: BodyText, name: 'graphLabel', content: '????'
 		},
 		{
-			kind: ProgressBar, name:'graphValue', style: 'height:30px; width:800px;'
+			kind: ProgressBar, name:'graphValue', style: 'height:30px; width:800px;', progress:300
 		}
 	],
-	/*
-	bindings : [
-		{from:this.label, to:this.$.graphLabel.content},
-		{from:this.data, to:this.$.graphValue.progress}
-	],
-	*/
+	
 
 	labelChanged : function(){
-		this.$.graphLabel.content = label;
+		this.$.graphLabel.content = this.label;
 	},
 	dataChanged: function(){
-		this.$.graphValue.progress = data;
+		this.$.graphValue.animateProgressTo(this.data);
 	},
 
 	contructor : function(){
@@ -39,10 +32,5 @@ module.exports = kind({
 
 	create: function(){
 		this.inherited(arguments);
-		if (arguments.length===2)
-		{
-			label = arguments[0];
-			data = arguments[1];
-		}
 	}
 });

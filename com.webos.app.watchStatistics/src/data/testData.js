@@ -19,55 +19,59 @@ module.exports = {
 			"watchTime":140
 		},
 		{
-			"label ":"9 KBS1",
+			"label":"9 KBS1",
 			"watchTime":80
 		},
 		{
-			"label ":"15 JTBC",
+			"label":"15 JTBC",
 			"watchTime":50
 		},
 		{
 			"label":"16 TVN",
 			"watchTime":25	
+		},
+		{
+			"label":"12 EBS",
+			"watchTime":10	
 		}
 	],
 	'timePeriodStatData': [
 		{
-			"label":20,
+			"label":"20",
 			"watchTime":12
 		},
 		{
-			"label":22,
+			"label":"22",
 			"watchTime":10
 		},
 		{
-			"label":6,
+			"label":"6",
 			"watchTime":10
 		},
 		{
-			"label":21,
+			"label":"21",
 			"watchTime":8
 		},
 		{
-			"label":7,
+			"label":"7",
 			"watchTime":5
 		},
 		{
-			"label":23,
+			"label":"23",
 			"watchTime":5
 		},
 		{
-			"label":0,
+			"label":"0",
 			"watchTime":3
 		},
 		{
-			"label":2,
+			"label":"2",
 			"watchTime":1
 		},
 		{
-			"label":3,
+			"label":"3",
 			"watchTime":1
-		},
+		}
 	],
 	'weekStatData' : [
 		{

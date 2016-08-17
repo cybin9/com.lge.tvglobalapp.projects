@@ -20,6 +20,7 @@ var
 	Divider = require('moonstone/Divider'),
     TooltipDecorator = require('moonstone/TooltipDecorator'),
 	FittableColumns = require('layout/FittableColumns'),
+	FittableRows = require('layout/FittableRows'),
 	GraphView = require('./GraphView'),
     Tooltip = require('moonstone/Tooltip');
 
@@ -74,12 +75,14 @@ module.exports = kind({
 								]
 							},
 							{
-								components: [
+								components:[
 									{
 										kind: GraphView,
+										classes: 'graph-area',
 										name: "GraphArea"
 									}
 								]
+								
 							}
 							]
 			}]
@@ -92,14 +95,17 @@ module.exports = kind({
 	],
 	onTapHandlerChStat: function (sender, ev) {
 		this.$.GraphArea.set('statType', 'ch');
+		//GraphArea.render();
 		return true;
 	},
 	onTapHandlerTimePeriodStat: function (sender, ev) {
 		this.$.GraphArea.set('statType','timePeriod');
+		//GraphArea.render();
 		return true;
 	},
 	onTapHandlerWeekStat: function (sender, ev) {
 		this.$.GraphArea.set('statType','week');
+		//GraphArea.render();
 		return true;
 	},
 });
