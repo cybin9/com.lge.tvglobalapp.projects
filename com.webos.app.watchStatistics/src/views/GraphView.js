@@ -27,9 +27,16 @@ module.exports = kind({
 	//components:GraphComponent,
 
 	published: {
-		statType : "",
-		GraphData : []
+		statType : ""
 	},
+	chStatData : null,
+	timePeriodStatData : null,
+	weekStatData : null,
+	bindings : [
+		{"from": "app.$.StatMainController.chStat", to:"chStatData"},
+		{"from": "app.$.StatMainController.timePeriodStat", to:"timePeriodStatData"},
+		{"from": "app.$.StatMainController.weekStat", to:"weekStatData"}
+	],
 
 	components : [
 		//{kind: Scroller, classes: "enyo-fit", components: [
@@ -309,19 +316,24 @@ module.exports = kind({
 
 	},
 
-	statTypeChanged : function(inOId){
-		var value = 0;
+	displayResult : function(){
+		var GraphData;
 		if (this.statType==='ch')
 		{
-			GraphData = DataController.chStat;
+			GraphData = this.chStatData;
 		}
 		else if (this.statType==='timePeriod')
 		{
-			GraphData = DataController.timePeriodStat;
+			GraphData = this.timePeriodStatData;
 		}
 		else {	// weekly Static
-			GraphData = DataController.weekStat;
+			GraphData = this.weekStatData;
 		}
+		console.log("GraphData len : "+GraphData.length)
+		var value = 0;
+		
+		if (GraphData.length==0) 
+			return;
 
 		//GraphComponent = new Array(GraphData.length);
 		maxIndex=0;
@@ -356,8 +368,6 @@ module.exports = kind({
 					this.$[i].popupContent = value.toString();
 					this.$[i].render();
 					*/
-					bound = this.$[i].getBounds();
-					console.log("index:"+index+"] progress : "+value+", x:"+bound.left+", y:"+bound.top+", w:"+bound.width+", h:"+bound.height);
 					updateGraph=true;
 					if (updateLabel && updateGraph)
 					{
@@ -377,16 +387,57 @@ module.exports = kind({
 					//this.$[i].showing = false;
 					this.$[i].hide();
 					this.$[i].render();
-					console.log("(i:"+numOfVisible+"FittableColumns show!!! x:"+bound.left+", y:"+bound.top+", w:"+bound.width+", h:"+bound.height);
 				}
 				else {
 					this.$[i].show();
 					this.$[i].render();
-					bound = this.$[i].getBounds();
-					console.log("(i:"+numOfVisible+"FittableColumns show!!! x:"+bound.left+", y:"+bound.top+", w:"+bound.width+", h:"+bound.height);
 					numOfVisible++;
 				}
 			}
+		}
+
+
+	},
+
+	chStatDataChanged : function(){
+		console.log("chStatDataChanged");
+		if (this.statType==='ch' 
+			&& this.chStatData!==null
+			&& this.chStatData.length>0)
+		{
+			this.displayResult();
+		}
+	},
+	timePeriodStatDataChanged : function(){
+		console.log("timePeriodStatDataChanged");
+		if (this.statType==='timePeriod' 
+			&& this.timePeriodStatData!==null
+			&& this.timePeriodStatData.length>0)
+		{
+			this.displayResult();
+		}
+	},
+	weekStatDataChanged : function(){
+		console.log("weekStatDataChanged");
+		if (this.statType==='week'
+			&& this.weekStatData !==null
+			&& this.weekStatData.length>0)
+		{
+			this.displayResult();
+		}
+	},
+
+	statTypeChanged : function(inOId){
+		if (this.statType==='ch')
+		{
+			this.app.$.StatMainController.setStatType(0);
+		}
+		else if (this.statType==='timePeriod')
+		{
+			this.app.$.StatMainController.setStatType(1);
+		}
+		else {	// weekly Static
+			this.app.$.StatMainController.setStatType(2);
 		}
 	}
 });

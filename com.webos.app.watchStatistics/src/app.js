@@ -9,7 +9,8 @@ var
 	Application = require('enyo/Application');
 
 var 
-	MainPanelView = require('./views/MainPanelView');
+	MainPanelView = require('./views/MainPanelView'),
+	StatMainController = require('./controls/StatMainController');
 
 
 
@@ -17,5 +18,12 @@ module.exports = kind({
 	name: "myapp.Application",
 	kind: Application,
 	view: MainPanelView,
+
+	components : [
+		{
+			name : "StatMainController",
+			kind : StatMainController
+		}
+	]
 });
 
