@@ -22,7 +22,14 @@ var
 	FittableColumns = require('layout/FittableColumns'),
 	FittableRows = require('layout/FittableRows'),
 	GraphView = require('./GraphView'),
-    Tooltip = require('moonstone/Tooltip');
+    Tooltip = require('moonstone/Tooltip'),
+
+    // for scroller
+    Scroller = require('moonstone/Scroller'),
+	TranslateScrollStrategy = require('enyo/TranslateScrollStrategy'),
+	TransitionScrollStrategy = require('enyo/TransitionScrollStrategy'),
+	TouchScrollStrategy = require('enyo/TouchScrollStrategy');
+
 
 var	// App Objects
 	GraphItem = require('./GraphItem'),
@@ -76,11 +83,13 @@ module.exports = kind({
 							},
 							{
 								components:[
-									{
-										kind: GraphView,
-										classes: 'graph-area',
-										name: "GraphArea"
-									}
+								 		{kind: Scroller, horizontal: "hidden", onmousedown: 'mouseDown', components: [
+											{
+												kind: GraphView,
+												classes: 'graph-area',
+												name: "GraphArea"
+											}
+										]}
 								]
 								
 							}
@@ -95,17 +104,23 @@ module.exports = kind({
 	],
 	onTapHandlerChStat: function (sender, ev) {
 		this.$.GraphArea.set('statType', 'ch');
+		this.render();
 		//GraphArea.render();
 		return true;
 	},
 	onTapHandlerTimePeriodStat: function (sender, ev) {
 		this.$.GraphArea.set('statType','timePeriod');
 		//GraphArea.render();
+		this.render();
 		return true;
 	},
 	onTapHandlerWeekStat: function (sender, ev) {
 		this.$.GraphArea.set('statType','week');
 		//GraphArea.render();
+		this.render();
 		return true;
 	},
+	mouseDown: function (sender, ev) {
+		ev.preventDefault();
+	}
 });

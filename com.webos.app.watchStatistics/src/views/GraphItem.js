@@ -5,31 +5,18 @@ var
 	kind = require('enyo/kind');
 
 module.exports = kind({
-	kind: FittableColumns,
 	name : 'GraphItem',
-	label : "",
-	data : 0,
-	components:[
-		{
-			kind: BodyText, name: 'graphLabel', content: '????'
-		},
-		{
-			kind: ProgressBar, name:'graphValue', style: 'height:30px; width:800px;', progress:300
-		}
-	],
-	
-
-	labelChanged : function(){
-		this.$.graphLabel.content = this.label;
-	},
-	dataChanged: function(){
-		this.$.graphValue.animateProgressTo(this.data);
-	},
-
-	contructor : function(){
-		this.inherited(arguments);
-	},
-
+	kind: FittableColumns,
+	classes:'graph-item',
+	showing: true,
+	components : [
+					{
+						kind:BodyText,  name:"itemLabel", classes: 'graph-label', content:''//m content:DataController.chStat[6].label
+					},
+					{
+						kind:ProgressBar, name:"itemValue", classes: 'graph'//, data:DataController.chStat[6].watchTime
+					}
+				],
 	create: function(){
 		this.inherited(arguments);
 	}

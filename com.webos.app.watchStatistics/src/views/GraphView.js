@@ -4,7 +4,7 @@ var	// Library
 	Panel = require('moonstone/Panel'),
 	FittableColumns = require('layout/FittableColumns'),
 	FittableRows = require('layout/FittableRows'),
-	BodyText = require('moonstone/BodyText'),
+	Item = require('moonstone/Item'),
 	ProgressBar = require('moonstone/ProgressBar'),
 	EnyoObject = require('enyo/CoreObject'),
 	PalmService = require('enyo-webos/PalmService'),
@@ -22,9 +22,9 @@ var maxIndex = 0, bound={};
 
 module.exports = kind({
 	name:'GraphView',
-	kind: FittableRows,
-
+	//kind:FittableRows,
 	//components:GraphComponent,
+	classes : 'graph-area',
 
 	published: {
 		statType : ""
@@ -38,286 +38,18 @@ module.exports = kind({
 		{"from": "app.$.StatMainController.weekStat", to:"weekStatData"}
 	],
 
+	/*
 	components : [
-		//{kind: Scroller, classes: "enyo-fit", components: [
-			{
-				kind: FittableColumns, classes:'graph-item', components : [
-						{
-							kind:BodyText,  classes: 'graph-label', content:''//, content:DataController.chStat[0].label
-						},
-						{
-							kind:ProgressBar, classes: 'graph'//, data:DataController.chStat[0].watchTime
-						},
-
-
-				]
-			},
-			{
-				kind: FittableColumns, classes:'graph-item', components : [
-						{
-							kind:BodyText,  classes: 'graph-label', content:''//,content:DataController.chStat[1].label
-						},
-						{
-							kind:ProgressBar, classes: 'graph'//, data:DataController.chStat[1].watchTime
-						}
-				]
-			},
-			{
-				kind: FittableColumns, classes:'graph-item', components : [
-						{
-							kind:BodyText,  classes: 'graph-label', content:''//,content:DataController.chStat[2].label
-						},
-						{
-							kind:ProgressBar, classes: 'graph'//, data:DataController.chStat[2].watchTime
-						}
-				]
-			},
-			{
-				kind: FittableColumns, classes:'graph-item', components : [
-						{
-							kind:BodyText,  classes: 'graph-label', content:''//, content:DataController.chStat[3].label
-						},
-						{
-							kind:ProgressBar, classes: 'graph'//, data:DataController.chStat[3].watchTime
-						}
-				]
-			},
-			{
-				kind: FittableColumns, classes:'graph-item', components : [
-						{
-							kind:BodyText,  classes: 'graph-label', content:''//, content:DataController.chStat[4].label
-						},
-						{
-							kind:ProgressBar, classes: 'graph'//, data:DataController.chStat[4].watchTime
-						}
-				]
-			},
-			{
-				kind: FittableColumns, classes:'graph-item', components : [
-						{
-							kind:BodyText,  classes: 'graph-label', content:''//m content:DataController.chStat[5].label
-						},
-						{
-							kind:ProgressBar, classes: 'graph'//, data:DataController.chStat[5].watchTime
-						}
-				]
-			},
-			{
-				kind: FittableColumns, classes:'graph-item', components : [
-						{
-							kind:BodyText,  classes: 'graph-label', content:''//m content:DataController.chStat[6].label
-						},
-						{
-							kind:ProgressBar, classes: 'graph'//, data:DataController.chStat[6].watchTime
-						}
-				]
-			},
-			{
-				kind: FittableColumns, classes:'graph-item', components : [
-						{
-							kind:BodyText,  classes: 'graph-label', content:''//m content:DataController.chStat[6].label
-						},
-						{
-							kind:ProgressBar, classes: 'graph'//, data:DataController.chStat[6].watchTime
-						}
-				]
-			},
-			{
-				kind: FittableColumns, classes:'graph-item', components : [
-						{
-							kind:BodyText,  classes: 'graph-label', content:''//m content:DataController.chStat[6].label
-						},
-						{
-							kind:ProgressBar, classes: 'graph'//, data:DataController.chStat[6].watchTime
-						}
-				]
-			},
-			{
-				kind: FittableColumns, classes:'graph-item', components : [
-						{
-							kind:BodyText,  classes: 'graph-label', content:''//m content:DataController.chStat[6].label
-						},
-						{
-							kind:ProgressBar, classes: 'graph'//, data:DataController.chStat[6].watchTime
-						}
-				]
-			},
-			{
-				kind: FittableColumns, classes:'graph-item', components : [
-						{
-							kind:BodyText,  classes: 'graph-label', content:''//m content:DataController.chStat[6].label
-						},
-						{
-							kind:ProgressBar, classes: 'graph'//, data:DataController.chStat[6].watchTime
-						}
-				]
-			},
-			{
-				kind: FittableColumns, classes:'graph-item', components : [
-						{
-							kind:BodyText,  classes: 'graph-label', content:''//m content:DataController.chStat[6].label
-						},
-						{
-							kind:ProgressBar, classes: 'graph'//, data:DataController.chStat[6].watchTime
-						}
-				]
-			},
-			{
-				kind: FittableColumns, classes:'graph-item', components : [
-						{
-							kind:BodyText,  classes: 'graph-label', content:''//m content:DataController.chStat[6].label
-						},
-						{
-							kind:ProgressBar, classes: 'graph'//, data:DataController.chStat[6].watchTime
-						}
-				]
-			},
-			{
-				kind: FittableColumns, classes:'graph-item', components : [
-						{
-							kind:BodyText,  classes: 'graph-label', content:''//m content:DataController.chStat[6].label
-						},
-						{
-							kind:ProgressBar, classes: 'graph'//, data:DataController.chStat[6].watchTime
-						}
-				]
-			},
-			{
-				kind: FittableColumns, classes:'graph-item', components : [
-						{
-							kind:BodyText,  classes: 'graph-label', content:''//m content:DataController.chStat[6].label
-						},
-						{
-							kind:ProgressBar, classes: 'graph'//, data:DataController.chStat[6].watchTime
-						}
-				]
-			},
-			{
-				kind: FittableColumns, classes:'graph-item', components : [
-						{
-							kind:BodyText,  classes: 'graph-label', content:''//m content:DataController.chStat[6].label
-						},
-						{
-							kind:ProgressBar, classes: 'graph'//, data:DataController.chStat[6].watchTime
-						}
-				]
-			},
-			{
-				kind: FittableColumns, classes:'graph-item', components : [
-						{
-							kind:BodyText,  classes: 'graph-label', content:''//m content:DataController.chStat[6].label
-						},
-						{
-							kind:ProgressBar, classes: 'graph'//, data:DataController.chStat[6].watchTime
-						}
-				]
-			},
-			{
-				kind: FittableColumns, classes:'graph-item', components : [
-						{
-							kind:BodyText,  classes: 'graph-label', content:''//m content:DataController.chStat[6].label
-						},
-						{
-							kind:ProgressBar, classes: 'graph'//, data:DataController.chStat[6].watchTime
-						}
-				]
-			},
-			{
-				kind: FittableColumns, classes:'graph-item', components : [
-						{
-							kind:BodyText,  classes: 'graph-label', content:''//m content:DataController.chStat[6].label
-						},
-						{
-							kind:ProgressBar, classes: 'graph'//, data:DataController.chStat[6].watchTime
-						}
-				]
-			},
-			{
-				kind: FittableColumns, classes:'graph-item', components : [
-						{
-							kind:BodyText,  classes: 'graph-label', content:''//m content:DataController.chStat[6].label
-						},
-						{
-							kind:ProgressBar, classes: 'graph'//, data:DataController.chStat[6].watchTime
-						}
-				]
-			},
-			{
-				kind: FittableColumns, classes:'graph-item', components : [
-						{
-							kind:BodyText,  classes: 'graph-label', content:''//m content:DataController.chStat[6].label
-						},
-						{
-							kind:ProgressBar, classes: 'graph'//, data:DataController.chStat[6].watchTime
-						}
-				]
-			},
-			{
-				kind: FittableColumns, classes:'graph-item', components : [
-						{
-							kind:BodyText,  classes: 'graph-label', content:''//m content:DataController.chStat[6].label
-						},
-						{
-							kind:ProgressBar, classes: 'graph'//, data:DataController.chStat[6].watchTime
-						}
-				]
-			},
-			{
-				kind: FittableColumns, classes:'graph-item', components : [
-						{
-							kind:BodyText,  classes: 'graph-label', content:''//m content:DataController.chStat[6].label
-						},
-						{
-							kind:ProgressBar, classes: 'graph'//, data:DataController.chStat[6].watchTime
-						}
-				]
-			},
-			{
-				kind: FittableColumns, classes:'graph-item', components : [
-						{
-							kind:BodyText,  classes: 'graph-label', content:''//, content:DataController.chStat[6].label
-						},
-						{
-							kind:ProgressBar, classes: 'graph'//, data:DataController.chStat[6].watchTime
-						}
-				]
-			}
-		//]}
-	],
-
+		{kind: Scroller, name:'resultArea', classes:'enyo-fill', horizontal: "hidden"}
+	],*/
 	create : function(){
-		var value = 0;
 		this.inherited(arguments);
-		bound = this.getBounds();
-		console.log("Pannel x:"+bound.left+", y:"+bound.top+", w:"+bound.width+", h:"+bound.height);
-
-		for (var i in this.$) {
-			/*
-			if (this.$[i].kind == ProgressBar) {
-				bound = this.$[i].getBounds();
-				value = (this.$[i].data / DataController.chStat[0].watchTime) *  100;
-				this.$[i].animateProgressTo(value);
-				if(!window.PalmSystem){
-						console.log("i:"+i+"] progress : "+value+", x:"+bound.left+", y:"+bound.top+", w:"+bound.width+", h:"+bound.height);
-				}
-			}
-			else if(this$[i].kind == BodyText){
-
-			}
-			*/
-			if(this.$[i].kind == FittableColumns){
-				this.$[i].showing = false;
-				if(!window.PalmSystem){
-					bound = this.$[i].getBounds();
-					console.log("FittableColumns x:"+bound.left+", y:"+bound.top+", w:"+bound.width+", h:"+bound.height);
-				}
-			}
-		}
-
 	},
 
 	displayResult : function(){
-		var GraphData;
+		var GraphData, i;
+		var item, itemLabel, graph, valueLabel;
+		var prevComps
 		if (this.statType==='ch')
 		{
 			GraphData = this.chStatData;
@@ -337,66 +69,35 @@ module.exports = kind({
 
 		//GraphComponent = new Array(GraphData.length);
 		maxIndex=0;
-		for (var i = 0; i<GraphData.length;i++){
+		for (i = 0; i<GraphData.length;i++){
 			if (GraphData[i].watchTime>GraphData[maxIndex].watchTime)
 				maxIndex = i;
+
 		}
-		index=0;
-		numOfVisible = 0;
-		for (i in this.$) {
-			if (this.$[i].kind == BodyText) {
-				if (index<GraphData.length){
-					this.$[i].content = GraphData[index].label;
-					this.$[i].render();
-					updateLabel=true;
-					console.log("[index:"+index+"] log : "+GraphData[index].label);
-					if (updateLabel && updateGraph)
-					{
-						index++;
-						updateLabel=false;
-						updateGraph=false;
-					}
-				}
-			}
-			else if (this.$[i].kind == ProgressBar) {
-				if (index<GraphData.length){
-					value = GraphData[index].watchTime;
-					this.$[i].max = GraphData[maxIndex].watchTime;
-					this.$[i].animateProgressTo(value);
-					/*this.$[i].popup=true;
-					this.$[i].showPercentage = false;
-					this.$[i].popupContent = value.toString();
-					this.$[i].render();
-					*/
-					updateGraph=true;
-					if (updateLabel && updateGraph)
-					{
-						index++;
-						updateLabel=false;
-						updateGraph=false;
-					}
-				}
-				else if (this.$[i].popup){
-					this.$[i].popup=false;
-				}
+		console.log("destory components");
+		prevComps = this.getComponents();
+		if (prevComps.length>0)
+			this.destroyComponents();
+		this.render();
 
+		for (i=0; i<GraphData.length;i++){
+			// Make Each Graph Item
+			console.log("create FittableColumns : "+i);
+			item = this.createComponent({kind:FittableColumns,  showing:true, classes:'graph-item'});
+			itemLabel = item.createComponent({kind:Item, showing:true, classes:'graph-label', content:GraphData[i].label})
+			graph = item.createComponent({kind:ProgressBar, showing:true,  showPercentage:false, classes:'graph', popupHeight:50, popupSide:'right', max:GraphData[maxIndex].watchTime})
+			graph.animateProgressTo(GraphData[i].watchTime)
+			if (GraphData[i].watchTime>0)
+			{
+				graph.set("popupContent", GraphData[i].watchTime+" hr")
+				graph.set("popup",true);
+				graph.set("uppercase", false);
 			}
-			
-			else if(this.$[i].kind == FittableColumns){
-				if (numOfVisible>=GraphData.length){
-					//this.$[i].showing = false;
-					this.$[i].hide();
-					this.$[i].render();
-				}
-				else {
-					this.$[i].show();
-					this.$[i].render();
-					numOfVisible++;
-				}
-			}
+			itemLabel.blur();
+			console.log("created Label : "+ itemLabel.content +" graph : "+grapH.progress);
+			this.addComponent(item);
 		}
-
-
+		this.render();
 	},
 
 	chStatDataChanged : function(){
