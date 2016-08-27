@@ -1,6 +1,6 @@
 /**
-	For simple applications, you might define all of your views in this file.  
-	For more complex applications, you might choose to separate these kind definitions 
+	For simple applications, you might define all of your views in this file.
+	For more complex applications, you might choose to separate these kind definitions
 	into multiple files under this folder.
 */
 
@@ -8,7 +8,7 @@ var
 	kind = require('enyo/kind'),
 	 $L = require('enyo/hooks').$L;
 
-var 
+var
 	Panels = require('moonstone/Panels'),
 	//Panels = require('moonstone-extra/Panels');
 	Panel = require('moonstone/Panel'),
@@ -70,12 +70,12 @@ module.exports = kind({
 									},
 									{
 										kind: Item, name: "timeStat",  content: $L("Most Watched Time-period"),
-										ontap : "onTapHandlerTimePeriodStat"/*, onSpotlightFocused: "onFocusHandler", onSpotlightBlur: "onSpotlightBlurHandler" 
+										ontap : "onTapHandlerTimePeriodStat"/*, onSpotlightFocused: "onFocusHandler", onSpotlightBlur: "onSpotlightBlurHandler"
 										accessibilityHint: "," + $L("You can edit a list of favorites such as add to favorites, delete, etc.")*/
 									},
 									{
 										kind: Item, name: "weekStat",  content: $L("Weekly Statistics"),
-										ontap : "onTapHandlerWeekStat"/*, onSpotlightFocused: "onFocusHandler", onSpotlightBlur: "onSpotlightBlurHandler" 
+										ontap : "onTapHandlerWeekStat"/*, onSpotlightFocused: "onFocusHandler", onSpotlightBlur: "onSpotlightBlurHandler"
 										accessibilityHint: "," + $L("You can edit a list of favorites such as add to favorites, delete, etc.")*/
 									}
 
@@ -91,7 +91,7 @@ module.exports = kind({
 											}
 										]}
 								]
-								
+
 							}
 							]
 			}]

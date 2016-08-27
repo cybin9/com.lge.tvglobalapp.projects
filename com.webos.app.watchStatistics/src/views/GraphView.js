@@ -63,8 +63,8 @@ module.exports = kind({
 		}
 		console.log("GraphData len : "+GraphData.length)
 		var value = 0;
-		
-		if (GraphData.length==0) 
+
+		if (GraphData.length==0)
 			return;
 
 		//GraphComponent = new Array(GraphData.length);
@@ -83,18 +83,40 @@ module.exports = kind({
 		for (i=0; i<GraphData.length;i++){
 			// Make Each Graph Item
 			console.log("create FittableColumns : "+i);
-			item = this.createComponent({kind:FittableColumns,  showing:true, classes:'graph-item'});
-			itemLabel = item.createComponent({kind:Item, showing:true, classes:'graph-label', content:GraphData[i].label})
-			graph = item.createComponent({kind:ProgressBar, showing:true,  showPercentage:false, classes:'graph', popupHeight:50, popupSide:'right', max:GraphData[maxIndex].watchTime})
+
+			// create component for each graph item (label + graph)
+			item = this.createComponent(
+																{kind:FittableColumns,
+																 showing:true,
+																 classes:'graph-item'});
+
+      // create component for each label of graph item
+			itemLabel = item.createComponent(
+																 {kind:Item,
+																 showing:true,
+																 classes:'graph-label',
+																 content:GraphData[i].label})
+			itemLabel.blur();
+
+		  // create component for each graph of graph item
+			graph = item.createComponent(
+																{kind:ProgressBar,
+																	showing:true,
+																	showPercentage:false,
+																	classes:'graph',
+																	popupHeight:50,
+																	popupSide:'right',
+																	uppercase:false
+																	})
 			graph.animateProgressTo(GraphData[i].watchTime)
 			if (GraphData[i].watchTime>0)
 			{
-				graph.set("popupContent", GraphData[i].watchTime+" hr")
+        graph.set("max", GraphData[maxIndex].watchTime);
+				graph.set("popupContent", GraphData[i].watchTime+" sec")
 				graph.set("popup",true);
-				graph.set("uppercase", false);
 			}
-			itemLabel.blur();
-			console.log("created Label : "+ itemLabel.content +" graph : "+grapH.progress);
+
+			// add component to this scroller area
 			this.addComponent(item);
 		}
 		this.render();
@@ -102,7 +124,7 @@ module.exports = kind({
 
 	chStatDataChanged : function(){
 		console.log("chStatDataChanged");
-		if (this.statType==='ch' 
+		if (this.statType==='ch'
 			&& this.chStatData!==null
 			&& this.chStatData.length>0)
 		{
@@ -111,7 +133,7 @@ module.exports = kind({
 	},
 	timePeriodStatDataChanged : function(){
 		console.log("timePeriodStatDataChanged");
-		if (this.statType==='timePeriod' 
+		if (this.statType==='timePeriod'
 			&& this.timePeriodStatData!==null
 			&& this.timePeriodStatData.length>0)
 		{
@@ -142,4 +164,3 @@ module.exports = kind({
 		}
 	}
 });
-

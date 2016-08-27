@@ -38,7 +38,23 @@ module.exports = kind({
 			service: "luna://com.webos.service.tv.channel",
 			method: "getChannelStat",
 			onResponse: "getChannelStatResponse"
+		},
+		{
+			name: "getChannelStatBeginDate",
+			kind: PalmService,
+			service: "luna://com.webos.service.tv.channel",
+			method: "getChannelStatBeginDate",
+			onResponse: "getChannelStatBeginDateResponse"
+		},
+		{
+			name: "clearChannelStatAll",
+			kind: PalmService,
+			service: "luna://com.webos.service.tv.channel",
+			method: "clearChannelStatAll",
+			onResponse: "clearChannelStatAllResponse"
 		}
+
+
 	],
 
 	create: function() {
@@ -121,5 +137,3 @@ module.exports = kind({
 			this.set("maxCount", maxCnt);
 	}
 });
-
-
