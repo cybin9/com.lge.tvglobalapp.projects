@@ -1,6 +1,6 @@
 /**
-	For simple applications, you might define all of your views in this file.  
-	For more complex applications, you might choose to separate these kind definitions 
+	For simple applications, you might define all of your views in this file.
+	For more complex applications, you might choose to separate these kind definitions
 	into multiple files under this folder.
 */
 
@@ -8,7 +8,7 @@ var
 	kind = require('enyo/kind'),
 	 $L = require('enyo/hooks').$L;
 
-var 
+var
 	Panels = require('moonstone/Panels'),
 	//Panels = require('moonstone-extra/Panels');
 	Panel = require('moonstone/Panel'),
@@ -41,6 +41,12 @@ module.exports = kind({
 	kind: Panels,
 	classes: "enyo-fit",
 	pattern:"activity",
+
+	statBeginDate : null,
+	bindings : [
+		{"from": "app.$.StatMainController.statBeginDate", to:"statBeginDate"}
+	],
+
 	/*handleShowing: false,
 	handlers: {
 		onApplicationClose: "appCloseHandler"
@@ -49,13 +55,15 @@ module.exports = kind({
 		{kind: Panel, title: "Watch Statistics", classes: "moon enyo-fit",
 			  headerType: 'medium',
 			  allowBackKey: false,
-			// Header (buttons)
 			headerComponents: [
-	        {kind: TooltipDecorator, components: [
-	            {name: "analogdelete", kind: IconButton, showing:true, small:true, src: "@../../assets/list_action_delete_b.svg",
-	                /*ontap: "commonButtonHandler",*/ accessibilityLabel : $L("DELETE")},
-	            {kind: Tooltip, content: $L("Erase all history"), accessibilityDisabled: true, position:"above"}
-       		 ]}],
+			//	components : [
+				{kind: Item, classes:'date-label', name:'dateHeaderLabel', spotlight: false},
+		        {kind: TooltipDecorator, components: [
+		            {name: "delete", kind: IconButton, showing:true, small:true, src: "@../../assets/list_action_delete_b.svg",
+		                ontap: "deleteButtonHandler", accessibilityLabel : $L("DELETE")},
+		            {kind: Tooltip, content: $L("Erase all history"), accessibilityDisabled: true, position:"above"}
+       		 	]}
+			],
 
 			// Body
 			components: [{
@@ -70,12 +78,12 @@ module.exports = kind({
 									},
 									{
 										kind: Item, name: "timeStat",  content: $L("Most Watched Time-period"),
-										ontap : "onTapHandlerTimePeriodStat"/*, onSpotlightFocused: "onFocusHandler", onSpotlightBlur: "onSpotlightBlurHandler" 
+										ontap : "onTapHandlerTimePeriodStat"/*, onSpotlightFocused: "onFocusHandler", onSpotlightBlur: "onSpotlightBlurHandler"
 										accessibilityHint: "," + $L("You can edit a list of favorites such as add to favorites, delete, etc.")*/
 									},
 									{
 										kind: Item, name: "weekStat",  content: $L("Weekly Statistics"),
-										ontap : "onTapHandlerWeekStat"/*, onSpotlightFocused: "onFocusHandler", onSpotlightBlur: "onSpotlightBlurHandler" 
+										ontap : "onTapHandlerWeekStat"/*, onSpotlightFocused: "onFocusHandler", onSpotlightBlur: "onSpotlightBlurHandler"
 										accessibilityHint: "," + $L("You can edit a list of favorites such as add to favorites, delete, etc.")*/
 									}
 
@@ -91,7 +99,7 @@ module.exports = kind({
 											}
 										]}
 								]
-								
+
 							}
 							]
 			}]
@@ -122,5 +130,19 @@ module.exports = kind({
 	},
 	mouseDown: function (sender, ev) {
 		ev.preventDefault();
+	},
+	deleteButtonHandler: function(sender, ev){
+		this.app.$.StatMainController.clearStatDataAll();
+	},
+
+	statBeginDateChanged: function(){
+		console.log("statBeginDateChanged")
+		//if (this.statBeginDate!=null)
+		if (this.statBeginDate==null)
+			this.statBeginDate = '';
+		console.log("bein date : "+this.statBeginDate)
+		this.$.dateHeaderLabel.set('content', 'Histroy from date : '+this.statBeginDate)
+		this.$.dateHeaderLabel.render();
+
 	}
 });

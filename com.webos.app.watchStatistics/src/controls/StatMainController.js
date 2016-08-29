@@ -13,7 +13,8 @@ var statModel = kind({
 		nCount	 : 0,
 		chStat : null,
 		timePeriodStat : null,
-		weekStat : null
+		weekStat : null,
+		statBeginDate : null
 	},
 
 	defaults: {
@@ -22,7 +23,8 @@ var statModel = kind({
 		nCount	 : 0,
 		chStat : null,
 		timePeriodStat : null,
-		weekStat : null
+		weekStat : null,
+		statBeginDate : null
 	}
 });
 
@@ -31,13 +33,28 @@ module.exports = kind({
 	kind: ModelController,
 
 	components: [
-		//getChannelStat
-		{
+		{	//getChannelStat
 			name: "getChannelStat",
 			kind: PalmService,
 			service: "luna://com.webos.service.tv.channel",
 			method: "getChannelStat",
 			onResponse: "getChannelStatResponse"
+		},
+
+		{	// get begin date of statistics
+			name: "getChannelStatBeginDate",
+			kind: PalmService,
+			service: "luna://com.webos.service.tv.channel",
+			method: "getChannelStatBeginDate",
+			onResponse: "getChannelStatBeginDateResponse"
+		},
+
+		{ 	// clear all stat. data
+			name: "clearChannelStatAll",
+			kind: PalmService,
+			service: "luna://com.webos.service.tv.channel",
+			method: "clearChannelStatAll",
+			onResponse: "clearChannelStatAllResponse"
 		}
 	],
 
@@ -47,12 +64,48 @@ module.exports = kind({
 		this.set("maxCount", 24);
 	},
 
+	clearStatDataAll : function(inRequest, inResponse){
+		console.log("clearStatDataAll called !!!!")
+		var param = {};
+		this.$.clearChannelStatAll.send(param);
+	},
+
+	getStatBeginDate : function(){
+		console.log("getStatBeginDate Start !!!! send luna to getStatBeginDate")
+		var param = {};
+		this.$.getChannelStatBeginDate.send(param);
+	},
+
+	getChannelStatBeginDateResponse: function(inSender, inResponse){
+		console.log("getChannelStatBeginDateResponse Start.")
+		if(inResponse !== undefined && inResponse !== null){
+			console.log("inResponse is  NOT Null !!!")
+			if(inResponse.statBeginDate !== null){
+				console.log("statBeginDate and NOT Null !!!")
+				this.set("statBeginDate", inResponse.statBeginDate);
+			}
+			else{
+				this.set("statBeginDate", null);
+			}
+		}
+	},
+
+	clearChannelStatAllResponse: function(inSender, inResponse){
+		console.log("clearChannelStatAllResponse Start !!!")
+		this.getStatBeginDate();
+		//this.updateStatResult(this.get('statType'));
+
+		this.set("chStat", null);
+		this.set("weekStat", null);
+		this.set("weekStat", null);
+
+	},
 	getChannelStatResponse:function(inSender, inResponse){
 		console.log("getChannelStatResponse start  !!!")
 		if(inResponse !== undefined && inResponse !== null){
 			console.log("inResponse is  NOT Null !!!")
 			if(inResponse.statList !== null && inResponse.nCount!==null){
-				console.log("getChannelStatResponse and NOT Null !!!")
+				console.log("statList and nCount NOT Null !!!")
 				if (this.get("statType")===0)
 				{
 					this.set("chStat", inResponse.statList);
@@ -63,16 +116,14 @@ module.exports = kind({
 					this.set("timePeriodStat", inResponse.statList);
 					this.set("nCount", inResponse.nCount);
 				}
-				else
+				else if (this.get("statType")===2)
 				{
 					this.set("weekStat", inResponse.statList);
 					this.set("nCount", inResponse.nCount);
 				}
+				else {}
 			}
-
 		}
-		else
-			console.log ("inResponse.statList === null || inResponse.nCount===null ("+ (inResponse.statList === null)+","+(inResponse.nCount === null)+")");
 	},
 
 	setStatType : function(sType){
@@ -121,5 +172,3 @@ module.exports = kind({
 			this.set("maxCount", maxCnt);
 	}
 });
-
-
