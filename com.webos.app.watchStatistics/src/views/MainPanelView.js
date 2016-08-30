@@ -23,6 +23,8 @@ var
 	FittableRows = require('layout/FittableRows'),
 	GraphView = require('./GraphView'),
     Tooltip = require('moonstone/Tooltip'),
+	Dialog = require('moonstone/Dialog'),
+	Button = require('moonstone/Button'),
 
     // for scroller
     Scroller = require('moonstone/Scroller'),
@@ -32,8 +34,6 @@ var
 
 
 var	// App Objects
-	GraphItem = require('./GraphItem'),
-	DataController = require('../controls/DataController'),
 	GraphComponent = [];
 
 module.exports = kind({
@@ -100,7 +100,21 @@ module.exports = kind({
 										]}
 								]
 
+							},
+							{
+									name: 'dialog',
+									kind: Dialog,
+									title: 'Confirm',
+									message: 'All data of statistics will be deleted. Do you want to continue?',
+									// message: [
+									// 	{kind: Button, content: 'Fancy button'}
+									// ],
+									components: [
+										{kind: Button, content: 'OK', ontap: 'eraseDataAll'},
+										{kind: Button, content: 'Cancel', ontap: 'hideDialog'}
+									]
 							}
+
 							]
 			}]
 		}
@@ -129,12 +143,18 @@ module.exports = kind({
 		return true;
 	},
 	mouseDown: function (sender, ev) {
-		ev.preventDefault();
+		ev.preventDefault()
+	},
+	hideDialog: function (sender, ev){
+		this.$.dialog.hide()
 	},
 	deleteButtonHandler: function(sender, ev){
-		this.app.$.StatMainController.clearStatDataAll();
+		this.$.dialog.show()
 	},
-
+	eraseDataAll: function(sender, ev){
+		this.app.$.StatMainController.clearStatDataAll();
+		this.$.dialog.hide()
+	},
 	statBeginDateChanged: function(){
 		console.log("statBeginDateChanged")
 		//if (this.statBeginDate!=null)

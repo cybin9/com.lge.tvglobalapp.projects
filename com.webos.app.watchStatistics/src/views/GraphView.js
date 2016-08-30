@@ -11,8 +11,6 @@ var	// Library
 	Scroller = require('moonstone/Scroller');
 
 var	// App Objects
-	GraphItem = require('./GraphItem'),
-	DataController = require('../controls/DataController'),
 	GraphComponent = [];
 
 var CONST_WIDTH_OF_GRAPH = 700;
@@ -47,7 +45,7 @@ module.exports = kind({
 	},
 
 	displayResult : function(){
-		var GraphData, i, value;
+		var GraphData, i, value, colorIndex;
 		var item, itemLabel, graph, valueLabel;
 		var prevComps
 		if (this.statType==='ch')
@@ -80,7 +78,10 @@ module.exports = kind({
 		console.log("destory components");
 		prevComps = this.getComponents();
 
+		var colors = ['moon-progress-bar-bar green','moon-progress-bar-bar LightGoldenRodYellow','moon-progress-bar-bar DodgerBlue','moon-progress-bar-bar DarkSalmon']
+
 		for (i=0; i<GraphData.length;i++){
+			colorIndex = i%4
 			// Make Each Graph Item
 			console.log("create FittableColumns : "+i);
 
@@ -104,6 +105,7 @@ module.exports = kind({
 																	showing:true,
 																	showPercentage:false,
 																	classes:'graph',
+																	bgBarClasses:colors[colorIndex],
 																	popupHeight:50,
 																	popupSide:'right',
 																	uppercase:false
