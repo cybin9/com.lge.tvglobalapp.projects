@@ -68,6 +68,7 @@ module.exports = kind({
 
 		this.app.$.StatMainController.getStatBeginDate();
 		this.destroyComponents();
+        this.render();
 
 		//GraphComponent = new Array(GraphData.length);
 		maxIndex=0;
@@ -112,7 +113,7 @@ module.exports = kind({
 																	})
 			if (GraphData[i].watchTime>0)
 			{
-				var timeUnit = 0
+				var timeUnit = 0, value = 0;
 				var timeUnitLabel=''
 				if (this.get('watchTimeUnit')==undefined
 					|| this.get('watchTimeUnit')==null)
@@ -127,14 +128,16 @@ module.exports = kind({
 				else
 					timeUnitLabel = ' hours.'
 
-				graph.set("max", GraphData[maxIndex].watchTime/timeUnit);
+				graph.set("max", GraphData[maxIndex].watchTime);
 				console.log("watch time : "+GraphData[i].watchTime+" -> "+(GraphData[i].watchTime/timeUnit))
 
-                GraphData[i].watchTime = GraphData[i].watchTime/timeUnit;
                 if (timeUnit>1)
-                    GraphData[i].watchTime = GraphData[i].watchTime.toFixed(1);
-
-				timeUnitLabel = GraphData[i].watchTime+timeUnitLabel;
+                {
+                    timeUnitLabel = (GraphData[i].watchTime/timeUnit).toFixed(1) +timeUnitLabel
+                }
+                else {
+                    timeUnitLabel = (GraphData[i].watchTime/timeUnit) +timeUnitLabel
+                }
 				graph.animateProgressTo(GraphData[i].watchTime)
 				graph.set("popupContent", timeUnitLabel);
 				graph.set("popup",true);
