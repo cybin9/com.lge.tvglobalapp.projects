@@ -25,7 +25,8 @@ module.exports = kind({
 	classes : 'graph-area',
 
 	published: {
-		statType : ""
+		statType : "",
+		watchTimeUnit : 1
 	},
 	chStatData : null,
 	timePeriodStatData : null,
@@ -67,7 +68,6 @@ module.exports = kind({
 
 		this.app.$.StatMainController.getStatBeginDate();
 		this.destroyComponents();
-		this.render();
 
 		//GraphComponent = new Array(GraphData.length);
 		maxIndex=0;
@@ -78,10 +78,10 @@ module.exports = kind({
 		console.log("destory components");
 		prevComps = this.getComponents();
 
-		var colors = ['moon-progress-bar-bar green','moon-progress-bar-bar LightGoldenRodYellow','moon-progress-bar-bar DodgerBlue','moon-progress-bar-bar DarkSalmon']
+		var colors = ['green','yellow','blue','red', 'white']
 
 		for (i=0; i<GraphData.length;i++){
-			colorIndex = i%4
+			colorIndex = i%5
 			// Make Each Graph Item
 			console.log("create FittableColumns : "+i);
 
@@ -104,17 +104,39 @@ module.exports = kind({
 																{kind:ProgressBar,
 																	showing:true,
 																	showPercentage:false,
-																	classes:'graph',
-																	bgBarClasses:colors[colorIndex],
 																	popupHeight:50,
 																	popupSide:'right',
-																	uppercase:false
+																	uppercase:false,
+																	classes:'graph',
+																	bgBarClasses:colors[colorIndex]
 																	})
-			graph.animateProgressTo(GraphData[i].watchTime)
 			if (GraphData[i].watchTime>0)
 			{
-        graph.set("max", GraphData[maxIndex].watchTime);
-				graph.set("popupContent", GraphData[i].watchTime+" sec")
+				var timeUnit = 0
+				var timeUnitLabel=''
+				if (this.get('watchTimeUnit')==undefined
+					|| this.get('watchTimeUnit')==null)
+					timeUnit = 1
+				else {
+					timeUnit = this.get('watchTimeUnit')
+				}
+				if (timeUnit==1)
+					timeUnitLabel = ' sec.'
+				else if (timeUnit==60)
+					timeUnitLabel = ' min.'
+				else
+					timeUnitLabel = ' hours.'
+
+				graph.set("max", GraphData[maxIndex].watchTime/timeUnit);
+				console.log("watch time : "+GraphData[i].watchTime+" -> "+(GraphData[i].watchTime/timeUnit))
+
+                GraphData[i].watchTime = GraphData[i].watchTime/timeUnit;
+                if (timeUnit>1)
+                    GraphData[i].watchTime = GraphData[i].watchTime.toFixed(1);
+
+				timeUnitLabel = GraphData[i].watchTime+timeUnitLabel;
+				graph.animateProgressTo(GraphData[i].watchTime)
+				graph.set("popupContent", timeUnitLabel);
 				graph.set("popup",true);
 			}
 
@@ -122,6 +144,12 @@ module.exports = kind({
 			this.addComponent(item);
 		}
 		this.render();
+	},
+
+	watchTimeUnitChanged : function(){
+		console.log('Watch time unit changed')
+		this.statTypeChanged()
+		this.displayResult()
 	},
 
 	chStatDataChanged : function(){

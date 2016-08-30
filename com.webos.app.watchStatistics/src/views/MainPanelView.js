@@ -22,9 +22,12 @@ var
 	FittableColumns = require('layout/FittableColumns'),
 	FittableRows = require('layout/FittableRows'),
 	GraphView = require('./GraphView'),
+	ContextualPopup = require('moonstone/ContextualPopup'),
+    ContextualPopupDecorator = require('moonstone/ContextualPopupDecorator'),
     Tooltip = require('moonstone/Tooltip'),
 	Dialog = require('moonstone/Dialog'),
 	Button = require('moonstone/Button'),
+	spotlight = require('spotlight/spotlight'),
 
     // for scroller
     Scroller = require('moonstone/Scroller'),
@@ -43,6 +46,7 @@ module.exports = kind({
 	pattern:"activity",
 
 	statBeginDate : null,
+	editName: null,
 	bindings : [
 		{"from": "app.$.StatMainController.statBeginDate", to:"statBeginDate"}
 	],
@@ -58,6 +62,22 @@ module.exports = kind({
 			headerComponents: [
 			//	components : [
 				{kind: Item, classes:'date-label', name:'dateHeaderLabel', spotlight: false},
+				{kind: ContextualPopupDecorator, name: "time-unit", components: [
+		            {kind: TooltipDecorator, components: [
+		                {name: "timeUnitIcon", kind: IconButton, showing:true, small:true, src: "@../../assets/list_action_lock_r.svg",
+		                    //onSpotlightLeft: "routeLockFocus", onSpotlightRight: "routeLockFocus", onActivate: "toggleButtonHandler",
+		                    accessibilityLabel : $L("Select TimeUnit")
+		                },
+		                {kind: Tooltip, content: $L("TIME UNIT"), accessibilityDisabled: true, position:"above"}
+		            ]},
+		            {kind: ContextualPopup, name: "timeUnitPopup", /*modal: true, spotlightModal: true,*/ showCloseButton: false, components: [
+		                {kind: Item, name: "time_sec", content: $L("Seconds"), 	classes :"itemTextStyle", ontap: "timeUnitButtonHandler"},
+		                {kind: Item, name: "time_min", content: $L("Minutes"), 	classes :"itemTextStyle", ontap: "timeUnitButtonHandler"},
+						{kind: Item, name: "time_hour", content: $L("Hours"),	classes :"itemTextStyle", ontap: "timeUnitButtonHandler"}
+		            ]}
+		        ]},
+
+
 		        {kind: TooltipDecorator, components: [
 		            {name: "delete", kind: IconButton, showing:true, small:true, src: "@../../assets/list_action_delete_b.svg",
 		                ontap: "deleteButtonHandler", accessibilityLabel : $L("DELETE")},
@@ -68,7 +88,7 @@ module.exports = kind({
 			// Body
 			components: [{
 							kind: FittableColumns,
-							//noStretch: true,
+							name : 'bodyArea',
 							components:[
 							{
 								components: [
@@ -91,7 +111,7 @@ module.exports = kind({
 							},
 							{
 								components:[
-								 		{kind: Scroller, horizontal: "hidden", onmousedown: 'mouseDown', components: [
+								 		{kind: Scroller, name:'GraphScoller',horizontal: "hidden", onmousedown: 'mouseDown', components: [
 											{
 												kind: GraphView,
 												classes: 'graph-area',
@@ -102,28 +122,36 @@ module.exports = kind({
 
 							},
 							{
-									name: 'dialog',
-									kind: Dialog,
-									title: 'Confirm',
-									message: 'All data of statistics will be deleted. Do you want to continue?',
-									// message: [
-									// 	{kind: Button, content: 'Fancy button'}
-									// ],
-									components: [
-										{kind: Button, content: 'OK', ontap: 'eraseDataAll'},
-										{kind: Button, content: 'Cancel', ontap: 'hideDialog'}
-									]
+								name: 'dialog',
+								kind: Dialog,
+								title: 'Confirm',
+								message: 'All data of statistics will be deleted. Do you want to continue?',
+								components: [
+									{kind: Button, content: 'OK', ontap: 'eraseDataAll'},
+									{kind: Button, content: 'Cancel', ontap: 'hideDialog'}
+								]
 							}
-
 							]
 			}]
 		}
-		//{kind: Panel, classes: 'enyo-fit', title: 'Watch Statistics', components: [
-		//					{kind: Item, name:'chStat', content: 'Most Watched Channels'},
-		//					{kind: Item, name:'timeStat', content: 'Most Watched Time-period'},
-		//					{kind: Item, name:'weekStat', content: 'Weekly Statistics'},
-		//				]}
 	],
+	timeUnitButtonHandler: function(inSender, inEvent) {
+		var watchTimeUnit = 1
+        console.log("commonButtonHandler : "+inSender.name)
+		if (inSender.name == 'time_sec'){
+			console.log("seconds case")
+			this.$.GraphArea.set('watchTimeUnit', 1)
+		}
+		else if (inSender.name == 'time_min'){
+			console.log("minute case")
+			this.$.GraphArea.set('watchTimeUnit', 60)
+		}
+		else {	// hours case
+			console.log("hour case")
+			this.$.GraphArea.set('watchTimeUnit', 3600)
+		}
+		this.$.timeUnitPopup.closePopup()
+    },
 	onTapHandlerChStat: function (sender, ev) {
 		this.$.GraphArea.set('statType', 'ch');
 		this.render();
