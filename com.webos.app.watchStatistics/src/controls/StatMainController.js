@@ -14,7 +14,8 @@ var statModel = kind({
 		chStat : null,
 		timePeriodStat : null,
 		weekStat : null,
-		statBeginDate : null
+		statBeginDate : null,
+		sortType : null
 	},
 
 	defaults: {
@@ -24,7 +25,8 @@ var statModel = kind({
 		chStat : null,
 		timePeriodStat : null,
 		weekStat : null,
-		statBeginDate : null
+		statBeginDate : null,
+		sortType : null
 	}
 });
 
@@ -63,7 +65,6 @@ module.exports = kind({
 		this.set("model", new statModel());
 		this.set("maxCount", 24);
 	},
-
 	clearStatDataAll : function(inRequest, inResponse){
 		console.log("clearStatDataAll called !!!!")
 		var param = {};
@@ -127,30 +128,34 @@ module.exports = kind({
 	},
 
 	setStatType : function(sType){
-		console.log("Controller:setStatType start!! : "+sType);
+		var orderType = "1"
+		console.log("Controller:setStatType start!! : "+sType+ " sort : "+this.get("sortType"));
+		if (this.get("sortType")=='watchTime')
+			orderType = "1"
+		else // sort type is label
+			orderType = "0"
 
 		if(this.get("statType")===null || this.get("statType") != sType)
 		{
 			this.set("statType", sType);
 		}
 		if (sType === 0){
-			var paramCh = {"statType":"0", "maxCount":"24"};
+			var paramCh = {"statType":"0", "maxCount":"24", "order":orderType};
 			this.$.getChannelStat.send(paramCh);
 			console.log("called --!!lunca service with 0 + "+this.get("maxCount")+" !!!!!!!");
 		}
 		else if (sType ===1 ){
-			var paramTimePeriod = {"statType":"1", "maxCount":"24"};
+			var paramTimePeriod = {"statType":"1", "maxCount":"24", "order":orderType};
 			this.$.getChannelStat.send(paramTimePeriod);
 			console.log("called --!!lunca service with 1 + "+this.get("maxCount")+" !!!!!!!");
 		}
 		else
 		{
-			var paramWeek = {"statType":"2", "maxCount":"24"};
+			var paramWeek = {"statType":"2", "maxCount":"24", "order":orderType};
 			this.$.getChannelStat.send(paramWeek);
 			console.log("called --!!lunca service with 2 + "+this.get("maxCount")+" !!!!!!!");
 		}
 	},
-
 	setChStat : function(chStatistic){
 		if(this.get("chStat")===null || this.get("chStat") != chStatistic)
 			this.set("chStat", chStatistic);
@@ -170,5 +175,13 @@ module.exports = kind({
 	setMaxCount: function(maxCnt){
 		if(this.get("maxCount")===null)
 			this.set("maxCount", maxCnt);
+	},
+	setSortType: function(sortType){
+		console.log("setSortType : "+sortType);
+
+		if(this.get("sortType")===null || this.get("sortType")!=sortType)
+		{
+			this.set("sortType", sortType);
+		}
 	}
 });

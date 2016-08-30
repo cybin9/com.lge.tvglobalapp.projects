@@ -31,10 +31,12 @@ module.exports = kind({
 	chStatData : null,
 	timePeriodStatData : null,
 	weekStatData : null,
+	sortType : null,
 	bindings : [
 		{"from": "app.$.StatMainController.chStat", to:"chStatData"},
 		{"from": "app.$.StatMainController.timePeriodStat", to:"timePeriodStatData"},
-		{"from": "app.$.StatMainController.weekStat", to:"weekStatData"}
+		{"from": "app.$.StatMainController.weekStat", to:"weekStatData"},
+		{"from": "app.$.StatMainController.sortType", to:"sortType"}
 	],
 
 	/*
@@ -76,41 +78,40 @@ module.exports = kind({
 			if (GraphData[i].watchTime>GraphData[maxIndex].watchTime)
 				maxIndex = i;
 		}
+
 		console.log("destory components");
 		prevComps = this.getComponents();
-
-		var colors = ['green','yellow','blue','red', 'white']
-
+		var colors = ['graph-color-0', 'graph-color-1','graph-color-2', 'graph-color-3', 'graph-color-4']
 		for (i=0; i<GraphData.length;i++){
 			colorIndex = i%5
+
 			// Make Each Graph Item
 			console.log("create FittableColumns : "+i);
 
 			// create component for each graph item (label + graph)
 			item = this.createComponent(
-																{kind:FittableColumns,
-																 showing:true,
-																 classes:'graph-item'});
+										{kind:FittableColumns,
+										 showing:true,
+										 classes:'graph-item'});
 
-      // create component for each label of graph item
+      		// create component for each label of graph item
 			itemLabel = item.createComponent(
-																 {kind:Item,
-																 showing:true,
-																 classes:'graph-label',
-																 content:GraphData[i].label})
+											 {kind:Item,
+											 showing:true,
+											 classes:'graph-label',
+											 content:GraphData[i].label})
 			itemLabel.blur();
 
-		  // create component for each graph of graph item
+		  	// create component for each graph of graph item
 			graph = item.createComponent(
-																{kind:ProgressBar,
-																	showing:true,
-																	showPercentage:false,
-																	popupHeight:50,
-																	popupSide:'right',
-																	uppercase:false,
-																	classes:'graph',
-																	bgBarClasses:colors[colorIndex]
-																	})
+											{kind:ProgressBar,
+												showing:true,
+												showPercentage:false,
+												popupHeight:50,
+												popupSide:'right',
+												uppercase:false,
+												classes:'graph'
+												})
 			if (GraphData[i].watchTime>0)
 			{
 				var timeUnit = 0, value = 0;
@@ -127,7 +128,6 @@ module.exports = kind({
 					timeUnitLabel = ' min.'
 				else
 					timeUnitLabel = ' hours.'
-
 				graph.set("max", GraphData[maxIndex].watchTime);
 				console.log("watch time : "+GraphData[i].watchTime+" -> "+(GraphData[i].watchTime/timeUnit))
 
@@ -145,6 +145,7 @@ module.exports = kind({
 
 			// add component to this scroller area
 			this.addComponent(item);
+			item.render();
 		}
 		this.render();
 	},
@@ -153,6 +154,20 @@ module.exports = kind({
 		console.log('Watch time unit changed')
 		this.statTypeChanged()
 		this.displayResult()
+	},
+	sortTypeChanged : function(){
+		console.log("sort type changed ")
+		if (this.statType==='ch')
+		{
+			this.app.$.StatMainController.setStatType(0);
+		}
+		else if (this.statType==='timePeriod')
+		{
+			this.app.$.StatMainController.setStatType(1);
+		}
+		else {	// weekly Static
+			this.app.$.StatMainController.setStatType(2);
+		}
 	},
 
 	chStatDataChanged : function(){

@@ -64,7 +64,7 @@ module.exports = kind({
 				{kind: Item, classes:'date-label', name:'dateHeaderLabel', spotlight: false},
 				{kind: ContextualPopupDecorator, name: "time-unit", components: [
 		            {kind: TooltipDecorator, components: [
-		                {name: "timeUnitIcon", kind: IconButton, showing:true, small:true, src: "@../../assets/list_action_lock_r.svg",
+		                {name: "timeUnitIcon", kind: IconButton, showing:true, small:true, src: "@../../assets/list_action_editchannelnumber_b.svg",
 		                    //onSpotlightLeft: "routeLockFocus", onSpotlightRight: "routeLockFocus", onActivate: "toggleButtonHandler",
 		                    accessibilityLabel : $L("Select TimeUnit")
 		                },
@@ -76,7 +76,19 @@ module.exports = kind({
 						{kind: Item, name: "time_hour", content: $L("Hours"),	classes :"itemTextStyle", ontap: "timeUnitButtonHandler"}
 		            ]}
 		        ]},
-
+				{kind: ContextualPopupDecorator, name: "SORT", components: [
+					{kind: TooltipDecorator, components: [
+						{name: "sortIcon", kind: IconButton, showing:true, small:true, src: "@../../assets/list_action_move_y.svg",
+							//onSpotlightLeft: "routeLockFocus", onSpotlightRight: "routeLockFocus", onActivate: "toggleButtonHandler",
+							accessibilityLabel : $L("Select sort criteria")
+						},
+						{kind: Tooltip, content: $L("SORT"), accessibilityDisabled: true, position:"above"}
+					]},
+					{kind: ContextualPopup, name: "sortPopup", /*modal: true, spotlightModal: true,*/ showCloseButton: false, components: [
+						{kind: Item, name: "sortLabel", content: $L("Label"), 	classes :"itemTextStyle", ontap: "sortButtonHandler"},
+						{kind: Item, name: "sortData", content: $L("Data"), 	classes :"itemTextStyle", ontap: "sortButtonHandler"},
+					]}
+				]},
 
 		        {kind: TooltipDecorator, components: [
 		            {name: "delete", kind: IconButton, showing:true, small:true, src: "@../../assets/list_action_delete_b.svg",
@@ -93,11 +105,11 @@ module.exports = kind({
 							{
 								components: [
 									{
-										kind: Item, name: "chStat", content: $L("Most Watched Channels"),
+										kind: Item, name: "chStat", content: $L("Channel Statistics"),
 										ontap : "onTapHandlerChStat"/*, onSpotlightFocused: "onFocusHandler", onSpotlightBlur: "onSpotlightBlurHandler" */
 									},
 									{
-										kind: Item, name: "timeStat",  content: $L("Most Watched Time-period"),
+										kind: Item, name: "timeStat",  content: $L("Time-period Statistics"),
 										ontap : "onTapHandlerTimePeriodStat"/*, onSpotlightFocused: "onFocusHandler", onSpotlightBlur: "onSpotlightBlurHandler"
 										accessibilityHint: "," + $L("You can edit a list of favorites such as add to favorites, delete, etc.")*/
 									},
@@ -135,9 +147,22 @@ module.exports = kind({
 			}]
 		}
 	],
-	timeUnitButtonHandler: function(inSender, inEvent) {
+	sortButtonHandler: function(inSender, inEvent) {
 		var watchTimeUnit = 1
         console.log("commonButtonHandler : "+inSender.name)
+		if (inSender.name == 'sortLabel'){
+			console.log("sort by label")
+			this.app.$.StatMainController.set('sortType', 'label')
+		}
+		else {	// sort data case
+			console.log("sort by data")
+			this.app.$.StatMainController.set('sortType', 'watchTime')
+		}
+		this.$.sortPopup.closePopup()
+    },
+	timeUnitButtonHandler: function(inSender, inEvent) {
+		var watchTimeUnit = 1
+        console.log("sortButtonHandler : "+inSender.name)
 		if (inSender.name == 'time_sec'){
 			console.log("seconds case")
 			this.$.GraphArea.set('watchTimeUnit', 1)
