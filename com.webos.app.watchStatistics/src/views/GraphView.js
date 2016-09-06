@@ -1,7 +1,7 @@
 
 var	// Library
 	kind = require('enyo/kind'),
-	Panel = require('moonstone/Panel'),
+	Panel = require('moonstone-extra/Panel'),
 	FittableColumns = require('layout/FittableColumns'),
 	FittableRows = require('layout/FittableRows'),
 	Item = require('moonstone/Item'),

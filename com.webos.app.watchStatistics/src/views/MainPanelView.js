@@ -9,10 +9,10 @@ var
 	 $L = require('enyo/hooks').$L;
 
 var
-	Panels = require('moonstone/Panels'),
-	//Panels = require('moonstone-extra/Panels');
-	Panel = require('moonstone/Panel'),
-	//Panel = require('moonstone-extra/Panel'),
+	//Panels = require('moonstone/Panels'),
+	Panels = require('moonstone-extra/Panels');
+	//Panel = require('moonstone/Panel'),
+	Panel = require('moonstone-extra/Panel'),
 	Tooltip = require('moonstone/Tooltip'),
 	IconButton = require('moonstone/IconButton'),
 	BodyText = require('moonstone/BodyText'),
