@@ -1,5 +1,5 @@
 {
-	"id": "com.webos.app.watchStatistics",
+	"id": "com.webos.app.stat",
 	"version": "1.0.0",
 	"vendor": "LGE",
 	"type": "web",
